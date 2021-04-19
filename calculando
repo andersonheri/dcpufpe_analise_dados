@@ -1,0 +1,55 @@
+# Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 12 de abril de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Calculando
+
+# selecionar pasta de recuperacao de arquivo
+
+setwd("C:/Users/ander/OneDrive/Área de Trabalho/Doutorado/Analise de Dados")
+
+
+# Instalando pacote para abrir banco de dados
+
+install.packages('rio')
+
+library(rio)
+
+# Abrindo banco de dados do IDHM do Brasil em 2010
+
+idhm2010 <- import("data.xlsx")
+
+summary(idhm2010$idhm_2010)
+
+# Calculando 
+
+# multiplicando 
+
+idhm2010$idhm2 <- idhm2010$idhm_2010 * 2
+
+
+# Somando
+
+idhm2010$idhm100 <- idhm2010$idhm_2010 + 100
+
+
+# Estatisticas
+
+mean(idhm2010$idhm_2010) #media
+
+median(idhm2010$idhm_2010) # mediana
+
+sd(idhm2010$idhm_2010) # desvio padrao
+
+var(idhm2010$idhm_2010) # variancia
+
+
+
+# centralizar
+
+idhm2010$centralizacao <- idhm2010$idhm_2010 - mean(idhm2010$idhm_2010)
+
+hist(idhm2010$centralizacao) #centralizada
+hist(idhm2010$idhm_2010) # original
