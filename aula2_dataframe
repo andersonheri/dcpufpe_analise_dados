@@ -1,0 +1,52 @@
+## Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 12 de abril de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Criar Data.Frame
+
+# Pacote de manipulação de dados: 'dplyr'
+
+install.packages("eeptools") # Instalar pacote 
+
+library("dplyr") # Abrir pacote
+
+
+##Criar data.frame com as notas das notas dos alunos nas disciplinas
+
+# Criar vetores do dataframe
+
+# Nome dos alunos
+
+aluno <- c ("Anderson", "Hugo", "Amanda", "Francisco", "Bhreno")
+
+# Nota da disciplina de Análise de Dados
+
+AD <- c ("10", "10", "9", "2", "3")
+
+# Semestre da nota da disciplina
+
+Semestre <- c ("1° semestre", "2º semestre", "1º semestre", "1º semestre",
+               "2° semestre")
+
+# Status de aprovação
+
+Aprovado <- c ("Sim", "Sim", "Sim", "Não","Sim")
+
+
+# Criar Data.Frame com os vetores
+
+
+df1 <- data.frame(
+  NomedoAluno = aluno, #nome dos alunos
+  Nota = AD , #notas das disciplinas
+  Semestre = Semestre, #Semestre da aprovação
+  Status = Aprovado #nota
+)
+
+
+# chamar objeto
+df1
+
+
