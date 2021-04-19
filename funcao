@@ -1,0 +1,53 @@
+# Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 12 de abril de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Funcao
+
+
+#Abrir banco de dados
+
+data(mtcars)
+
+
+# Calcuilar a variancia 
+
+variancia <- function(x) {
+  x <- sd(x) / mean(x)
+  return(x)
+}
+
+
+
+# chamar objeto
+variancia(mtcars$cyl)
+
+
+
+# Raiz quadrada 
+
+raiz2 <- function(x) {
+  x <- sqrt(x)
+  return(x)
+}
+
+
+# Chamar o objeto
+raiz2(mtcars$cyl)
+
+
+# identificar casos ausentes
+
+
+NAcasos <- function(x) {
+  n <- sum(is.na(x))
+  cat("Valores ausentes: ", n, "\n", sep = "")
+  
+  invisible(x)
+}
+
+# Chamar para identificar casos ausentes no banco
+
+NAcasos(mtcars)
