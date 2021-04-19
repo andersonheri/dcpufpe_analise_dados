@@ -1,0 +1,50 @@
+# Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 12 de abril de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Funcoes de repeticoes
+
+
+
+# Usando o banco nativo do R "Mtcars'
+
+
+
+# funções de repetição 
+
+# Média dos valores do banco de dados utilizado
+apply(mtcars[ ,-3], 2, mean)
+
+lapply(mtcars[, -3], mean) 
+
+sapply(mtcars[, -3], mean)
+
+
+#Ajustar a apresentacao 
+
+par(mfrow = c(2, 2)) # prepara a área de plotagem para receber 4 plots
+
+
+#Histograma
+
+sapply(mtcars[ , 1:4], hist)
+
+# Histograma com título
+
+mapply(hist, banco_final[ , 1:4], 
+       MoreArgs=list(main='Histograma', xlab = 'Valores', ylab = 'Frequência')) 
+
+
+# looping para as variáveis do Mtcars
+
+for (i in 1:4) { 
+  x <- mtcars[ , i] 
+  hist(x,
+       main = names(mtcars)[i], 
+       xlab = "Valores da Variável", 
+       ylab = 'Frequência', 
+       xlim = c(min(mtcars[, i]), max(mtcars[, i]))) 
+}
+
