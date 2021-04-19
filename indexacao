@@ -1,0 +1,75 @@
+# Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 12 de abril de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Index e operadores logicos
+
+# selecionar pasta de recuperacao de arquivo
+setwd("C:/Users/ander/OneDrive/Área de Trabalho/Carla Duraes")
+
+
+# Abrir pacotes necessarios
+
+install.packages('rio')
+
+library(rio)
+
+
+#Abrir banco
+
+banco_final <- import("banco_carla_1112.xlsx")
+
+
+#Ponderar por 10 mil habitantes
+
+
+banco_final$leitos_pond <- (banco_final$leitos/banco_final$populacao)*10000
+banco_final$desp_pond <- (banco_final$desp_def/banco_final$populacao)*10000
+
+
+
+# Elaborar modelo de regressao linear (MQO) do banco utilizado
+
+#Analise multivariada
+
+modelo1 <- lm(BCG_nascer ~ cob_ESF + leitos_pond +
+                cob_AB + desp_pond , data=banco_final)
+
+summary(modelo1) #Resumo do modelo de MQO utilizado
+
+
+
+# Indexacao
+
+
+# identificar uma variável
+
+# variavel
+banco_final$ano
+
+# linha
+
+banco_final [, 2]
+
+
+# linhas e colunas
+
+banco_final[1:4, 2:4]
+
+# nome
+
+banco_final[, 'populacao']
+
+
+# Dropped
+
+banco_final[, 'populacao', drop = FALSE]
+
+
+#listas
+
+modelo1$coefficients #coeficiente da regressao
+modelo1$coefficients[1] #coeficiente determinado
+modelo1 [['coefficients']] [1]
