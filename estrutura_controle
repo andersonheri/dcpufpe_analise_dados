@@ -1,0 +1,49 @@
+# Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 12 de abril de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Estrutura de controle
+
+# selecionar pasta de recuperacao de arquivo
+setwd("C:/Users/ander/OneDrive/Área de Trabalho/Carla Duraes")
+
+
+# Abrir pacotes necessarios
+
+install.packages('rio')
+
+library(rio)
+
+
+#Abrir banco
+
+banco_final <- import("banco_carla_1112.xlsx")
+
+
+# Condicional simples
+
+# Imunização de BCG ao Nascer em PE - Suficiente ou Insuficiente
+
+banco_final$imu_bcgnascer <- ifelse(banco_final$BCG_nascer < 100,
+                                    "Insuficiente", "Suficiente")
+
+
+# Organizar a tela para repeticao
+par(mfrow = c(2, 2))
+
+
+# Usando o 'for'
+for (i in 6:9) { # cria o loop, que deve ir de 1 a 4
+x <- banco_final[ , i] # atribui as colunas da base de dados a uma variável temporária
+hist(x,
+     main = paste("Variável", i, names(banco_final)[i]), # atribui o nome ao gráfico de forma incremental, passando coluna por coluna
+     xlab = "Valores da Variável", # rótulo do eixo x
+     xlim = c(0, 200)) # limite mínimo e máximo do eixo x
+}
+
+
+# Usando o lapply
+
+lapply(banco_final[, 6:9], hist)
