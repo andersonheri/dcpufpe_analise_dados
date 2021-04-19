@@ -1,0 +1,42 @@
+# Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 12 de abril de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Simulações e Sequências
+
+# Seta aleatória de sementes de dados
+
+tarefaSemente <- addTaskCallback(function (...)
+  {set.seed(101); TRUE}) # Funcao para fixar sementes aleatórias
+
+tarefaSemente
+
+
+# Criar distribuição normal dos dados
+
+distnormal1 <- rnorm (80) # Criando uma distribuição aleatória de 80 casos
+
+#Analisar discritivamente a distribuição
+
+summary(distnormal1)
+
+
+# Criacao de variável binomial
+
+distbino1 <- rbinom(80, 1, 0.6) # distribuição binomial com 60% de probabilidade
+
+
+distbino1 # chamar o objeto
+
+
+#Criacao de variavel de indexação 
+
+indDistnormal1 <- seq(1, length(distnormal1)) #indexação para a variavel normal
+
+indDistnormal1 # chamar 
+
+inddistbino1 <- seq(1, length(distbino1)) # indexacao para variavel binaria
+
+inddistbino1 # chamar
