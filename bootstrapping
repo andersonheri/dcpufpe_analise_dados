@@ -1,0 +1,49 @@
+# Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 12 de abril de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Amostragem e Bootstrapping
+
+# Seta aleatória de sementes de dados
+
+tarefaSemente <- addTaskCallback(function (...)
+  {set.seed(101); TRUE}) # Funcao para fixar sementes aleatórias
+
+tarefaSemente
+
+
+# Criar distribuição normal dos dados
+
+distnormal1 <- rnorm (80) # Criando uma distribuição aleatória de 80 casos
+
+#  Criar uma amostragem
+
+sample(distnormal1, 20, replace = TRUE) # Com repeticao
+
+
+sample(distnormal1, 20, replace = F) # sem repeticao
+
+
+# Bootstrapping com a funcao Repplicate 
+
+Bootdistnormal1 <- replicate (10, sample(distnormal1, 10, replace = TRUE))
+
+Bootdistnormal1 # chamar objetos 
+
+
+# Replicando para outros tamanhos de amostras
+
+MeanBootdistnormal20 <- replicate (20, sample(distnormal1, 10, replace = TRUE)) # 20 rep
+
+MeanBootdistnormal50 <- replicate (50, sample(distnormal1, 10, replace = TRUE)) # 50 rep
+
+MeanBootdistnormal100 <- replicate (100, sample(distnormal1, 10, replace = TRUE)) # 100 rep
+
+# Media da amostragem
+
+mean (MeanBootdistnormal20)
+mean (MeanBootdistnormal50)
+mean (MeanBootdistnormal100)
+mean(Bootdistnormal1)
