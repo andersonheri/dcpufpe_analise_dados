@@ -1,0 +1,98 @@
+# Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 25 de abril de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Exercício 1
+
+
+## 1 . Criacao das variaveis ####
+# Criar sementes aleatórias para os 500 casos
+
+# Seta aleatória de sementes de dados
+
+tarefaSemente <- addTaskCallback(function (...)
+{set.seed(500); TRUE}) # Funcao para fixar sementes aleatórias
+
+
+
+# Criar variáveis normais com desvio padrão diferente
+
+
+v1 <- rnorm (500, sd = 5) # Variável normal com desvio padrão de 5
+
+v2 <- rnorm (500, sd = 2) # Variavel normal com desvio padrão de 2
+
+
+# Criar variável de Contagem (Poison)
+
+
+v3 <- rpois(500, lambda = 1)
+
+# Criar variãvel contagem com dispersão (binomial negativo)
+
+v4 <- rnbinom(500, size = 1, mu = 2)
+
+# Criar variavel binomial 
+
+v5 <- rbinom(500, size = 1, prob = .5)
+
+
+# Criar o primeiro data.frame 
+
+banco <- data.frame(
+  normal_1 = v1,
+  normal_2 = v2 ,
+  poison = v3,
+  b_negativo = v4,
+  binomial = v5
+)
+
+banco # chamar objet0/ver o banco
+
+
+# Criar variável qualitativa a partir da variável binomial ( 1 - positivo e 0 - negativo)
+
+banco$quali <- ifelse(banco$binomial == 1, "Positivo", "Negativo")
+
+
+# Variável de indexação
+
+banco$v_index <- data.frame(1:500)
+
+
+
+## 2. Centralização de variáveis normais####
+
+# Variavel normal 1
+banco$cent_normal1 <- banco$normal_1 - mean(banco$normal_1)
+
+# Variavel normal 2
+
+banco$cent_normal2 <- banco$normal_2 - mean(banco$normal_2)
+
+
+
+## 3. Trocar zero por um nas variaveis de contagem ####
+
+
+banco$poison[banco$poison =="0"] <- 1
+
+banco$b_negativo[banco$b_negativo == "0"] <- 1
+
+
+## 4. Crie um novo data.frame com amostra (100 casos) da base de dados original ####
+
+# Instalar pacote "Dplyr'
+
+install.packages("dplyr")
+
+# Abrir
+
+library("dplyr")
+
+
+# Extrair uma amostra de 100 casos do banco anterior
+
+banco2 <- sample_n(banco, 100)
