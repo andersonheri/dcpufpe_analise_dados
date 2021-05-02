@@ -1,0 +1,62 @@
+# Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 28 de abril de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: ETL
+
+
+## Carregar base de Dados
+
+# carrega a base de snistros de transito do site da PCR
+
+sinistrosRecife2019Raw <- read.csv2('http://dados.recife.pe.gov.br/dataset/44087d2d-73b5-4ab3-9bd8-78da7436eed1/resource/3531bafe-d47d-415e-b154-a881081ac76c/download/acidentes-2019.csv', 
+                                    sep = ';', encoding = 'UTF-8')
+
+sinistrosRecife2020Raw <- read.csv2('http://dados.recife.pe.gov.br/dataset/44087d2d-73b5-4ab3-9bd8-78da7436eed1/resource/fc1c8460-0406-4fff-b51a-e79205d1f1ab/download/acidentes_2020-novo.csv', 
+                                    sep = ';', encoding = 'UTF-8')
+
+sinistrosRecife2021Raw <- read.csv2('http://dados.recife.pe.gov.br/dataset/44087d2d-73b5-4ab3-9bd8-78da7436eed1/resource/2caa8f41-ccd9-4ea5-906d-f66017d6e107/download/acidentes_2021-jan.csv',
+                                    sep = ';', encoding = 'UTF-8')
+
+
+# Tratar e tranformar banco de dados de 2019
+
+# Excluir variável 10 a 12 que não existem nas bases de 2020 e 2021
+
+sinistrosRecife2019mod <- sinistrosRecife2019Raw[, -(10:12)]
+
+# modificar nome das variáveis diferentes usando pacote nativo
+
+#  Variavel "data"
+
+names(sinistrosRecife2019mod)[names(sinistrosRecife2019mod) == "DATA"] <- "data"
+
+# Juntar banco de dados de 2019 a 2021
+
+sinistrosRecifeRaw <- rbind(sinistrosRecife2019mod, sinistrosRecife2020Raw, sinistrosRecife2021Raw)
+
+# observa a estrutura dos dados
+
+str(sinistrosRecifeRaw)
+
+
+#Transformar as variáveis do banco de caractere para "data" e "hora"
+
+# data
+sinistrosRecifeRaw$data <- as.Date(sinistrosRecifeRaw$data, format = "%Y-%m-%d")
+
+# Numerico
+sinistrosRecifeRaw$numero <- as.numeric(sinistrosRecifeRaw$numero)
+
+#  Natureza do acidente
+
+sinistrosRecifeRaw$natureza_acidente <- as.factor(sinistrosRecifeRaw$natureza_acidente)
+
+
+# exporta em formato nativo do R
+saveRDS(sinistrosRecifeRaw, "sinistrosRecife.rds")
+
+# exporta em formato tabular .csv
+write.csv2(sinistrosRecifeRaw, "sinistrosRecife.csv")
