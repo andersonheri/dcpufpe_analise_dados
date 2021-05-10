@@ -1,0 +1,38 @@
+# Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 9 de maio 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Carga Incremental.
+
+
+# Utilizando a base de dados anterior de vacinação
+
+vacinadosRecife <- read.csv2('http://dados.recife.pe.gov.br/dataset/f381d9ea-4839-44a6-b4fe-788239189900/resource/966e9c4c-df45-40d7-9c58-2f13c61a6d28/download/vacinados.csv', 
+                             sep = ';', encoding = 'UTF-8')
+
+# Extrair ultima linha da base
+vacinadosRecife_mod <- vacinadosRecife[-476819,] 
+
+
+
+# Criar a chave substituta
+vacinadosRecife_mod$chave = apply(vacinadosRecife_mod [, c(2,6)], 
+                                       MARGIN = 1, FUN = function(i) paste(i, collapse = "")) 
+
+
+# Base original
+vacinadosRecife$chave = apply(vacinadosRecife[, c(2,6)],
+                              MARGIN = 1, FUN = function(i) paste(i, collapse = "")) 
+
+
+
+# Comparação entre as duas bases 
+vacinadosRecifeIncremento <- (!vacinadosRecife$chave %in% vacinadosRecife_mod$chave)
+
+
+# Junta o banco defasado com a info nova, criando o banco atualizado
+
+vacinadosRecifeatualizado <- rbind(vacinadosRecife_mod, 
+                                   vacinadosRecife_mod[vacinadosRecifeIncremento,])
