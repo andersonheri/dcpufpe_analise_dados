@@ -1,0 +1,55 @@
+##Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 17 de maio de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Large e Medium Data 
+
+# Instalar pacotes 'table'
+
+install.packages('data.table')
+library(data.table)
+
+
+# Delimitar casos
+
+caso=9e6
+
+
+# cria o data.frame com o total de casos acima de 1GB
+chuva <-  data.table(Tempo = sample(c("Nublado", "Ensolarado", "Chuvoso"), caso, replace = TRUE),
+                       Risco = sample(c("Alto", "Médio", "Baixo"), caso, replace = TRUE ),
+                       Cidade = sample(c("Recife","João Pessoa","São Paulo"), caso, replace=TRUE),
+                       Temperatura = rnorm(caso, mean = 29.5, sd = 4),
+                       MMChuva = rnorm(caso, mean = 10000, sd = 500),
+                       Ano = sample(c("2001", "2002", "2003", "2004", "2005", "2006", "2007"),
+                                    caso, replace=TRUE)
+)
+
+
+
+# Tamanho do objeto
+
+object.size(chuva)
+
+# Salvar em .CSV
+
+write.csv2(chuva,"~/Desktop/chuva_capitais.csv")
+
+
+# extração direta via read.csv2
+system.time(extracaoLD1 <- read.csv2("~/Desktop/chuva_capitais.csv"))
+object.size(extracaoLD1)
+
+# extração via amostragem com read.csv
+amostraLD2 <- read.csv2("~/Desktop/chuva_capitais.csv", nrows = 20)
+amostraLD2Classes <- sapply(amostraLD2, class) # encontra a classe da amostra amostra
+system.time(extracaoLD2 <- data.frame(read.csv2("~/Desktop/chuva_capitais.csv", 
+                                                colClasses=amostraLD2Classes)))
+object.size(extracaoLD2)
+
+# extração via função fread, que já faz amostragem automaticamente
+system.time(extracaoLD3 <- fread("~/Desktop/chuva_capitais.csv"))
+object.size(extracaoLD3)
+
