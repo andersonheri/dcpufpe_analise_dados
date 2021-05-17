@@ -1,0 +1,74 @@
+##Programa de Pos Graduacao em Ciencia Politica - UFPE ##
+## Data: 17 de maio de 2021 ##
+## Eletiva de Analise de Dados - prof. Hugo Medeiros ## 
+## Anderson Henrique da Silva ##
+
+
+## Atividade: Large Data
+
+getwd()
+
+# Instalar pacotes
+install.packages("ff")
+install.packages("ffbase")
+
+library(ff)
+library(ffbase)
+library(data.table)
+
+# Delimitar casos
+
+caso=9e6
+
+
+# cria o data.frame com o total de casos acima de 1GB
+chuva <-  data.table(Tempo = sample(c("Nublado", "Ensolarado", "Chuvoso"), caso, replace = TRUE),
+                     Risco = sample(c("Alto", "Médio", "Baixo"), caso, replace = TRUE ),
+                     Cidade = sample(c("Recife","João Pessoa","São Paulo"), caso, replace=TRUE),
+                     Temperatura = rnorm(caso, mean = 29.5, sd = 4),
+                     MMChuva = rnorm(caso, mean = 10000, sd = 500),
+                     Ano = sample(c("2001", "2002", "2003", "2004", "2005", "2006", "2007"),
+                                  caso, replace=TRUE)
+)
+
+
+# Tamanho 
+object.size(chuva) 
+
+# Checar primeira linhas
+head(chuva) 
+
+# Salvar base com as especificacoes
+write.table(chuva,"chuva_capitais_1.csv",sep=",",row.names=FALSE,quote=FALSE) 
+
+
+# Processo de endereco
+enderecoBase <- ("chuva_capitais_1.csv") 
+
+
+
+
+# criando o arquivo ff
+extracaoLD4 <- read.csv.ffdf(file=enderecoBase)
+
+
+# Funções basicas
+
+mean(extracaoLD4[,5]) # media da qt de chuva por mm
+hist(extracaoLD4[,4])# Histograma de casos da temperatura
+
+# amostra com 200 casos. 
+
+LD4sample<- extracaoLD4[sample(nrow(extracaoLD4), 200) , ]
+
+
+# Estatística descritiva
+summary(LD4sample)
+
+
+#regressão
+reg1 <- lm(MMChuva ~ Temperatura, data = LD4sample)
+
+summary(reg1)
+   
+   
