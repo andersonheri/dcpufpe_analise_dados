@@ -69,7 +69,8 @@ covid_pe <- covid_pe %>% mutate(tosse = ifelse(grepl(paste("TOSSE", collapse="|"
 # Calculando os casos com tosse
 covid_pe <- covid_pe %>% group_by(tosse) %>% mutate(tosse_confirmado = sum(confirmados))
 
-
+# Negativo c/ tosse: 115.921
+# Positivo s/ tosse: 399.832
 
 ## Atv.5  - Agrupe os dados para o Estado, estime a média móvel de 7 dias de confirmados e negativos
 
